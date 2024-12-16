@@ -1,6 +1,6 @@
 # helm-chart-ocp-cluster-roles
 
-demo Suisse requires to create additional roles to control OpenShift accesses more granularly.
+Truist requires to create additional roles to control OpenShift accesses more granularly.
 This helm chart configures all cluster roles that are required to manage cluster access levels.
 
 ## ClusterRoles
