@@ -1,0 +1,2 @@
+ocp_cluster_roles_namespace: ocp-cluster-roles
+ocp_cluster_roles_timeout: 45000

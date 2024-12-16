@@ -1,0 +1,14 @@
+{{ $namespace := .Vars.ocp_cluster_roles_namespace }}
+{{ $timeout := .Vars.ocp_cluster_roles_timeout }}
+command:
+{{- range $clusterrole := list "ocp-f5-operator-monitor-nodes" "f5-operator-monitor-nodes" }}
+{{- range $verb := list "get" "list" "watch" }}
+  ClusterRole {{ $clusterrole }} allows {{ $verb }} nodes:
+    exec: oc --as=system:serviceaccount:{{ $namespace }}:test-{{ $clusterrole }} auth can-i {{ $verb }} nodes
+    exit-status: 0
+    stderr: []
+    stdout:
+    - /^yes/
+    timeout: {{ $timeout }}
+{{ end }}
+{{ end }}

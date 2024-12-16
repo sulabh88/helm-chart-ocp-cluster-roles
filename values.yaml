@@ -1,0 +1,3 @@
+# Image to use to run the tests
+# It must contain oc, goss
+testImage: ########

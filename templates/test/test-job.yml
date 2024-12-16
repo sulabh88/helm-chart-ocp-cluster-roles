@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: test-
+  annotations:
+    helm.sh/hook-delete-policy: before-hook-creation
+    helm.sh/hook: post-install
+    helm.sh/hook-weight: "15"
+  namespace: "{{ .Release.Namespace }}"
+spec:
+  template:
+    spec:
+      containers:
+      - name: test
+        image: "{{ .Values.testImage }}"
+        command:
+        - /bin/sh
+        - /test/test.sh
+        volumeMounts:
+        - mountPath: /test
+          name: test-files
+      restartPolicy: Never
+      serviceAccountName: ocp-test
+      serviceAccount: ocp-test
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: test-files
+        name: test-files
+  backoffLimit: 1
